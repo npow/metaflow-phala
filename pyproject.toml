@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "metaflow-phala"
+version = "0.1.0"
+description = "Run Metaflow steps inside Phala Cloud TEE (Trusted Execution Environment) CVMs"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+dependencies = [
+    "metaflow>=2.12",
+    "pyyaml>=6.0",
+    "requests>=2.21.0",
+]
+authors = [
+    { name = "npow" },
+]
+keywords = [
+    "metaflow",
+    "phala",
+    "tee",
+    "confidential-computing",
+    "cloud",
+    "ml",
+    "machine-learning",
+    "mlops",
+]
+
+[project.urls]
+Homepage = "https://github.com/npow/metaflow-phala"
+Repository = "https://github.com/npow/metaflow-phala"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/metaflow_extensions"]
+
+[tool.ruff]
+src = ["src"]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that require PHALA_API_KEY and a remote datastore",
+]
